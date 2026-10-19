@@ -45,4 +45,6 @@ jobs:
 
     - name: Build
       # Build your program with the given configuration. Note that --config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
-      run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }} -j
+      # Parallel jobs: 3 out of 4 cores available no avoid overloading standard GitHub-hosted runners for public repositories
+      # https://docs.github.com/en/actions/reference/runners/github-hosted-runners#supported-runners-and-hardware-resources
+      run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }} -j 3
